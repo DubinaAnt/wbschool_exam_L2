@@ -1,5 +1,10 @@
 package main
 
+import (
+	"dev11/internal"
+	"log"
+)
+
 /*
 === HTTP server ===
 
@@ -23,5 +28,13 @@ package main
 */
 
 func main() {
+	handlers := new(internal.Handler)
+	calendar := internal.NewCalendar()
+	handlers.InitRoutes(calendar)
 
+	srv := new(internal.Server)
+	err := srv.Run("8000")
+	if err != nil {
+		log.Fatalf("server start error: %s", err.Error())
+	}
 }

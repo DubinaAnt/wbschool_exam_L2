@@ -1,5 +1,7 @@
 package main
 
+import "fmt"
+
 /*
 === Поиск анаграмм по словарю ===
 
@@ -19,6 +21,41 @@ package main
 Программа должна проходить все тесты. Код должен проходить проверки go vet и golint.
 */
 
-func main() {
+func search(arr []string) map[string][]string {
+	result := make(map[string][]string)
 
+	for _, item := range arr {
+		result[item] = append(result[item], item)
+	}
+
+	for _, item := range arr {
+		for key := range result {
+			if equolsTwoAnagramm(key, item) {
+				result[key] = append(result[key], item)
+				delete(result, item)
+
+			}
+		}
+	}
+
+	//по тз: В результате каждое слово должно встречаться только один раз и отсортированной
+	for item := range result {
+		result[item] = uniqAndSortItems(result[item])
+	}
+
+	//по тз : Множества из одного элемента не должны попасть в результат.
+	for item := range result {
+		if len(result[item]) <= 1 {
+			delete(result, item)
+		}
+	}
+
+	return result
+}
+
+func main() {
+	arr := []string{"пятак", "пятка", "тяпка", "листок", "слиток", "столик", "qwe", "пятак", "ert", "ert", "abc", "acb",
+		"bca"}
+
+	fmt.Println(search(arr))
 }

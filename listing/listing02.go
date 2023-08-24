@@ -1,12 +1,9 @@
-Что выведет программа? Объяснить вывод программы. Объяснить как работают defer’ы и их порядок вызовов.
-
-```go
+// Что выведет программа? Объяснить вывод программы. Объяснить как работают defer’ы и их порядок вызовов.
 package main
 
 import (
 	"fmt"
 )
-
 
 func test() (x int) {
 	defer func() {
@@ -15,7 +12,6 @@ func test() (x int) {
 	x = 1
 	return
 }
-
 
 func anotherTest() int {
 	var x int
@@ -26,15 +22,9 @@ func anotherTest() int {
 	return x
 }
 
-
 func main() {
 	fmt.Println(test())
 	fmt.Println(anotherTest())
 }
-```
 
-Ответ:
-```
-...
-
-```
+// Ответ: [2 1]
